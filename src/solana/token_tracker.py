@@ -29,8 +29,8 @@ from loguru import logger
 
 # Raydium Liquidity Pool V4
 RaydiumLPV4 = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8"
-URI = "https://api.mainnet-beta.solana.com"  # "https://api.devnet.solana.com" | "https://api.mainnet-beta.solana.com"
-WSS = "wss://api.mainnet-beta.solana.com"  # "wss://api.devnet.solana.com" | "wss://api.mainnet-beta.solana.com"
+URI = "https://solana-api.instantnodes.io/token-pSJK0vIWb1HCNUiNsyKOx0D6bDQ2e4gA"  # "https://api.devnet.solana.com" | "https://api.mainnet-beta.solana.com"
+WSS = "wss://solana-api.instantnodes.io/token-pSJK0vIWb1HCNUiNsyKOx0D6bDQ2e4gA"  # "wss://api.devnet.solana.com" | "wss://api.mainnet-beta.solana.com"
 solana_client = Client(URI)
 # Raydium function call name, look at raydium-amm/program/src/instruction.rs
 log_instruction = "initialize2"
@@ -123,11 +123,6 @@ def get_tokens(signature: Signature, RaydiumLPV4: Pubkey) -> None:
         encoding="jsonParsed",
         max_supported_transaction_version=0
     )
-    # Start logging to transactions.json
-    with open("transactions.json", 'a', encoding='utf-8') as raw_transactions:
-        raw_transactions.write(f"signature: {signature}\n")
-        raw_transactions.write(transaction.to_json())        
-        raw_transactions.write("\n ########## \n")
     # End logging
     instructions = get_instructions(transaction)
     filtred_instuctions = instructions_with_program_id(instructions, RaydiumLPV4)
